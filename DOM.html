@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .js-subsribe-button{
+            padding : 10px;
+            background-color: red;
+            border-radius: 50px;
+            color: black;
+            font-weight: bold;
+        }
+        .subscribed-button{
+            padding : 10px;
+            background-color: lightgray;
+            border-radius: 50px;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <p>Youtube Subscribe Button</p>
+    <button onclick="changeTheText()" class = "js-subsribe-button">Subscribe</button>
+    <script>
+        function changeTheText(){
+            if(document.body.querySelector('.js-subsribe-button').innerHTML === 'Subscribe'){
+                document.body.querySelector('.js-subsribe-button').innerHTML = 'Subscribed';
+                document.body.querySelector('.js-subsribe-button').classList.add('subscribed-button');
+            }else{
+                document.body.querySelector('.js-subsribe-button').innerHTML = 'Subscribe';
+                document.body.querySelector('.js-subsribe-button').classList.remove('subscribed-button');
+
+            }
+        }
+    </script>
+    
+</body>
+</html>

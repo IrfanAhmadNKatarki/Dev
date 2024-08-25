@@ -1,0 +1,25 @@
+.add-button{
+    padding : 05px 40px;
+  color:green;
+  background-color: rgb(255, 102, 0);
+
+}
+
+.delete-button{
+  padding: 05px 20px;
+  color:green;
+  background-color: rgb(160, 144, 134);
+
+}
+
+
+.todo-grid{
+    display:grid;
+    grid-template-columns: 180px 100px 50px;
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+input{
+    font-size: smaller;
+}

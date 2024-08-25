@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            padding : 10px
+        }
+        button{
+            padding : 10px
+        }
+        .pred{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <p> Amazon Shipping Calculator </p>
+    <p> Orders Under $40 =   +$10 Shipping </p>
+    <p> Orders Over $40 =   Free Shipping </p>
+    <input class="js-text" onkeydown="console.log('typing');console.log(event);
+    event.key === 'Enter' ? calculateShipping() : null;
+  "><button class="js-button" onclick="calculateShipping()">Calculate</button>
+    <p class = 'js-ptext'></p>
+    <script>
+     function calculateShipping(){
+         const val = Number(document.body.querySelector('.js-text').value) * 100;
+         let buttonElement = document.body.querySelector('.js-ptext');
+        if(val < 0){
+            buttonElement.innerHTML = `Error :: cannot be less than 0`;
+            buttonElement.classList.add('pred');
+        }
+         else if(val >= 4000){
+            buttonElement.innerHTML = 'Free Shipping';
+            buttonElement.classList.remove('pred');
+        }else{
+            buttonElement.innerHTML = (val+1000)/100 +' Total after adding Shipping';
+            buttonElement.classList.remove('pred');
+
+        }
+     }
+
+    </script>
+</body>
+</html>

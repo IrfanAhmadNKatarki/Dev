@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(8, 8, 8);
+            color : white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .move-icon{
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 120px;
+            width: 120px;  
+            border-radius: 100px;  
+            font-weight: bold;
+            font-size: medium;
+            color : rgb(103, 231, 178);
+            background-color: transparent;
+            border : 2px solid white;
+            margin: 10px;
+        }
+        .js-rock{
+            background-image: url(rock.png);
+          }
+        .js-paper{
+            background-image: url(paper.png);
+           }
+        .js-scissor{
+            background-image: url(scissor.png);
+           }
+        .header-p{
+            font-weight: bold;color: red;align-self: auto;
+        }
+        .js-reset-button{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- project 1 rock paper scissor -->
+<div style="display: inline-block; text-align: center;vertical-align: middle;">
+    <p class = "header-p";>Rock Paper Scissor</p>
+    
+        <button class="js-rock move-icon js-rock"></button>
+    <button class="js-paper move-icon" onclick="choose=2;playRockPaperScissor();"></button>
+    <button class="js-scissor move-icon" onclick="choose=3;playRockPaperScissor()"></button>
+    <p class="result-p"></p>
+    <button class="js-reset-button reset-button" style="display: block;">reset button</button>
+    <button class="js-reset-button auto-play"  style="display: block;">Autoplay</button>
+
+
+</div>
+    <script>
+        const score = JSON.parse(localStorage.getItem('score')) || {
+            wins : 0,
+            loss : 0,
+            tie : 0
+        };
+        let choose;
+        let sysChoose;
+    
+        document.querySelector('.js-rock').addEventListener('click',() =>{choose = 1; playRockPaperScissor()})
+        document.body.addEventListener('keydown',(event)=>{
+            if(event.key==='r'){
+                choose = 1;playRockPaperScissor();
+                console.log(event.key);
+            }else if(event.key==='p'){
+                choose = 2;playRockPaperScissor();
+                console.log(event.key);
+            }else if(event.key==='s'){
+                choose = 3;playRockPaperScissor();
+                console.log(event.key);
+            }
+        });
+        console.log(score);
+        function playRockPaperScissor() {
+    sysChoose = Math.floor(Math.random() * 3) + 1;
+    if (choose === sysChoose) {
+        score.tie++;
+        document.body.querySelector('.result-p').innerHTML = `You chose:  <img src = "${getChoice(choose)}.png" style="height: 70px;width: 70px;vertical-align: middle;"> and system chose:<img src="${getChoice(sysChoose)}.png" style="background-size: contain;background-repeat: no-repeat;height: 70px;width: 70px;vertical-align: middle;">.</br> Hence it\'s a tie.</br> Wins:
+           ${score.wins}   Losses: ${score.loss} Ties: ${score.tie}`;
+    } else if ((choose === 1 && sysChoose === 3) || (choose === 3 && sysChoose === 2) || (choose === 2 && sysChoose === 1)) {
+        score.wins++;
+        document.body.querySelector('.result-p').innerHTML = `You chose:  <img src = "${getChoice(choose)}.png" style="background-size: contain;background-repeat: no-repeat;height: 70px;width: 70px;vertical-align: middle;"> and system chose:<img src = "${getChoice(sysChoose)}.png" style="background-size: contain;background-repeat: no-repeat;height: 70px;width: 70px;vertical-align: middle;">'.</br> Hence you Lose.</br> Wins:
+        ${score.wins}   Losses: ${score.loss} Ties: ${score.tie}`;
+    } else if((choose === 1 && sysChoose === 2) || (choose === 2 && sysChoose === 3) || (choose === 3 && sysChoose === 1)){
+        score.loss++;
+        document.body.querySelector('.result-p').innerHTML = `You chose:  <img src = "${getChoice(choose)}.png" style="background-size: contain;background-repeat: no-repeat;height: 70px;width: 70px;vertical-align: middle;"> and system chose:<img src = "${getChoice(sysChoose)}.png" style="background-size: contain;background-repeat: no-repeat;height: 70px;width: 70px;vertical-align: middle;">'.</br> Hence you Win.</br> Wins:
+        ${score.wins}   Losses: ${score.loss} Ties: ${score.tie}`;
+    } else{
+        score.loss = 0;score.wins=0;score.tie=0;
+        document.body.querySelector('.result-p').innerText ='Wins: ' + score.wins + ' Losses: ' + score.loss + ' Ties: ' + score.tie;
+    }
+    localStorage.setItem('score',JSON.stringify(score));
+    console.log(JSON.parse(localStorage.getItem('score')));
+   
+    // console.log(JSON.parse(getItem('score')));
+   
+}
+
+
+        function getChoice(choose){
+            switch(choose){
+                case 1: return 'rock';
+                case 2: return 'paper';
+                case 3: return 'scissor';
+                default: return 'nothing';
+            }
+        }
+
+        let intervalId;
+        const autoPlay = document.querySelector('.auto-play');
+        autoPlay.addEventListener('click',handleEvent);
+        document.addEventListener('keydown',(event)=>{
+            console.log(event.key);
+
+            if(event.key==='a'){
+                handleEvent();
+             }
+             if(event.key ==='Backspace'){
+                choose=4;localStorage.removeItem('score');
+                playRockPaperScissor();
+            }
+        });
+
+    
+        function handleEvent(){
+        if(autoPlay.innerHTML === 'Autoplay'){
+            choose=Math.floor(Math.random() * 3) + 1;
+            intervalId = setInterval(() => {playRockPaperScissor()}, 3000)
+                autoPlay.innerHTML = 'Started'; 
+            }else{
+                clearInterval(intervalId);
+                autoPlay.innerHTML = 'Autoplay';
+            }
+        }
+        document.querySelector('.reset-button').addEventListener('click',()=>{
+            if(confirm('Do you want to reset the score?')){
+                choose=4;localStorage.removeItem('score');
+                playRockPaperScissor();
+            } 
+        });
+       
+   </script>
+
+
+   <!-- solving 6a -->
+
+   <!-- 7a -->
+
+ 
+
+</body>
+</html>

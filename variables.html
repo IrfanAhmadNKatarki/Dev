@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+     </head>
+    <body>
+        
+        <button onclick="document.querySelector('.js-qty').innerHTML = (`Cart Quantity :: ${Quantity}`)" window.onload="document.querySelector('.js-qty').innerHTML = (`Cart Quantity :: ${Quantity}`)">Show Quantity</button>
+        <button title ="Irfan" onclick="updateQuantity(1)">Add to Cart</button>
+        <button onclick="updateQuantity(2)">+2</button>
+        <button onclick="updateQuantity(3)">+3</button>
+        <button onclick="updateQuantity(-2)">-2</button>
+        <button onclick="updateQuantity(-3)">-3</button>
+        <button onclick="updateQuantity(0)">Reset Cart</button>
+        <p class='js-qty'></p>
+        
+
+        <script>
+            document.querySelector('.js-qty');
+            let Quantity = 0;
+            let maxQuantity = 10;
+            function updateQuantity(value) {
+            Quantity + value > maxQuantity?document.querySelector('.js-qty').innerHTML = ('can\'t update quantity '+maxQuantity+ 'is achieved'):Quantity + value < 0 ? document.querySelector('.js-qty').innerHTML = ('Can\'t update the Quantity') : (Quantity+=value,document.querySelector('.js-qty').innerHTML = ('Updated the Quantity by '+value));
+            function showQuantity() {
+            document.querySelector('.js-qty').innerHTML = `Cart Quantity :: ${Quantity}`;
+        }
+
+        // Display quantity on page load
+        window.onload = function() {
+            showQuantity();
+        };
+    }
+
+        console.log(newFun());
+        function newFun(){
+            let a = 'Irfan';
+            return a;
+        }
+
+        </script>
+
+    </body>
+</html>

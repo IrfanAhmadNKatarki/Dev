@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="playGame('heads')">head</button>
+    <button onclick="playGame('tails')">tail</button>
+    <button onclick ="document.querySelector('p').innerHTML = 'you chose heads'">heads</button>
+    <button onclick ="document.querySelector('p').innerHTML = 'you chose tails'">tails</button>
+    <input type="text" onkeyup="updateText(event)">
+    <p class="js-pclass"></p>
+    <p></p>
+    <script>
+          // solving 6s
+          let hour = new Date().getHours();
+        console.log(hour);
+    
+        let age = 7;
+        const isHoliday = false;
+        if(isHoliday && (age <= 6  || age>=64)){
+            console.log('Discount '+age);
+        }else{
+            console.log('No Discount '+age);
+        }
+
+        let randomNumber = Math.random();
+        let result = '';
+        let guess='tails';
+        randomNumber < 1/2?result = 'heads':randomNumber === 1/2?result = 'tie':result = 'tails'
+        result === guess?console.log('you Win'):console.log('you Lose');
+
+
+            function greet(name){
+                if(!name){
+                    console.log('Hello there');
+                }else{
+                    console.log('Hello '+name);
+                }
+            }
+            greet();
+            function celsiusToFahrenheit(celsius){
+                return (celsius * (9/5)) + 32;
+            }
+            function fahrenheitToCelsius(fahreheit){
+                return (fahreheit -32) * 5/9;
+            }
+            console.log(celsiusToFahrenheit(20));
+            function convertTempratures(temp,unit){
+                if(unit === 'C'){
+                  return celsiusToFahrenheit(temp) + 'F'; 
+                }
+                else{
+                  return fahrenheitToCelsius(temp) + 'C'; 
+                }
+            }
+            alert(convertTempratures(86,'F'))
+            function convertLength(num,unit){
+                if(unit === 'km'){
+                    return num/1.6  + 'm.'  
+                }else if(unit == 'm'){
+                    return num * 1.6  + 'km.'
+                }else{
+                    return 'Invalid Unit : '+unit  ; 
+                }
+            }
+            alert(convertLength(50,'lbs'));
+
+
+            const product1 = {
+                name : 'basketball',
+                price : 2095
+            }
+            const product2 = {
+                name : 'basketball',
+                price : 2095
+            }
+            console.log(product1);
+
+            product1.price += 500;
+            console.log(product1);
+            product1['delivery-Time']= '3days';
+            product2['delivery-Time']= '3days';
+            console.log(product1);
+            function comparePrice(p1,p2){
+                console.log(p1.price > p2.price ? p2.price : p1.price);
+            }
+            comparePrice(product1,product2);
+            const product3 = {
+                name : 'basketball',
+                price : 2095 
+            }
+            function isSameProduct(product3,product2){
+                console.log(product3.name === product2.name ? product3.price === product2.price ? true : false : false);
+            }
+            isSameProduct(product3,product2);
+
+
+            // coin flip game
+            const tracks = JSON.parse(localStorage.getItem('tracks')) ||  {
+                wins : 0,
+                loss : 0
+            }
+
+            function playGame(guess){
+                const decide = Math.random();
+                const result = decide > 0.5 ? 'heads' : 'tails';
+                alert((result === guess ?' you win ' : ' you lose ') + result);
+                result === guess ? (tracks.wins += 1) : (tracks.loss += 1);
+                console.log(tracks);
+            }
+
+            function updateText(event) {
+            const input = document.querySelector('input[type="text"]');
+            const display = document.querySelector('.js-pclass');
+            display.innerHTML = input.value; // Show the full input value
+        }
+            localStorage.setItem('tracks',JSON.stringify(tracks)); 
+    </script>
+ 
+</body>
+</html>
